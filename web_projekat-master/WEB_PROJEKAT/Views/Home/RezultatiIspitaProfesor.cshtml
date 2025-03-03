@@ -1,0 +1,111 @@
+﻿
+@{
+    ViewBag.Title = "RezultatiIspitaProfesor";
+}
+@{
+    Layout = null;
+}
+
+@using WEB_PROJEKAT.Models;
+@model IEnumerable<RezultatIspita>
+
+<style>
+    body {
+        background-color: #1068e1
+    }
+
+    #tabela{
+        color: #ffffff;
+        font-size: 20px;
+    }
+
+    #naslov{
+        color: #ffffff;
+    }
+
+    #dugme {
+        padding: 8px 15px;
+        border-radius: 15px;
+        background-color: #ffffff;
+        color: #1068e1;
+        text-align: center;
+        text-decoration: none;
+        transition: background-color 0.3s, box-shadow 0.3s;
+        cursor: pointer;
+    }
+
+    #dugme:hover {
+        background-color: #2980b9;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+</style>
+
+<h2 id="naslov">Rezultati ispita</h2>
+
+<table id="tabela">
+    <tr>
+        <th>Predmet</th>
+        <th>Student</th>
+        <th>Ocena</th>
+    </tr>
+
+    @{
+        string ispitrezultatiCsv = "C:\\Users\\Lenovo\\Desktop\\WEB\\ispitrezultati.csv";
+        string prijavljen = "C:\\Users\\Lenovo\\Desktop\\WEB\\prijavljen.csv";
+
+        string student = "";
+        string predmet = "";
+        string ocena = "";
+
+        string predmetPrijava = "";
+
+        List<RezultatIspita> rezultati = new List<RezultatIspita>();
+
+        using (StreamReader sr = new StreamReader(prijavljen))
+        {
+            string line;
+
+            while ((line = sr.ReadLine()) != null)
+            {
+                string[] values = line.Split(',');
+
+                predmetPrijava = values[2];
+            }
+        }
+
+        using (StreamReader reader = new StreamReader(ispitrezultatiCsv))
+        {
+            string line;
+
+            while ((line = reader.ReadLine()) != null)
+            {
+                string[] values = line.Split(',');
+
+                student = values[0];
+                predmet = values[1];
+                ocena = values[2];
+
+                RezultatIspita ri = new RezultatIspita(predmet, student, ocena);
+                rezultati.Add(ri);
+            }
+        }
+    }
+
+    @foreach (RezultatIspita ri in rezultati)
+    {
+        if (ri.Ispit == predmetPrijava)
+        {
+            <tr>
+                <td>@ri.Ispit&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                <td>@ri.Student&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                <td>@ri.Ocena&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+            </tr>
+        }
+    }
+</table>
+
+<form action="~/Home/Profesor">
+    <input id="dugme" type="submit" value="nazad"/>
+</form>
+
+

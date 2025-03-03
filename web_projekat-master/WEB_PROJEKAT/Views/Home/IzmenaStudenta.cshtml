@@ -1,0 +1,86 @@
+﻿
+@{
+    ViewBag.Title = "IzmenaStudenta";
+}
+@{
+    Layout = null;
+}
+@using WEB_PROJEKAT.Models
+@model Student
+
+<style>
+    body {
+        background-color: #1068e1
+    }
+
+    #tabela {
+        color: #ffffff;
+        font-size: 20px;
+    }
+
+    #dugme {
+        padding: 8px 15px;
+        border-radius: 15px;
+        background-color: #ffffff;
+        color: #1068e1;
+        text-align: center;
+        text-decoration: none;
+        transition: background-color 0.3s, box-shadow 0.3s;
+        cursor: pointer;
+    }
+
+    #dugme:hover {
+        background-color: #2980b9;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    #naslov{
+        color: #ffffff;
+        font-size: 28px;
+    }
+
+</style>
+
+<h2 id="naslov">Izmena Studenta</h2>
+
+<form method="post" action="~/Home/IzmeniStudenta">
+    <table id="tabela">
+        <tr>
+            <td>Korisnicko ime:@Model.KorisnickoIme</td>
+            <td><input type="hidden" value="@Model.KorisnickoIme" name="korisnickoIme" /></td>
+        </tr>
+        <tr>
+            <td>Broj indeksa:@Model.BrojIndeksa</td>
+            <td><input type="hidden" value="@Model.BrojIndeksa" name="brojIndeksa"/></td>
+        </tr>
+        <tr>
+            <td>Sifra:<input value="@Model.Sifra" name="sifra" /></td>
+        </tr>
+        <tr>
+            <td>Ime:<input value="@Model.Ime" name="ime" /></td>
+        </tr>
+        <tr>
+            <td>Prezime:<input value="@Model.Prezime" name="prezime" /></td>
+        </tr>
+        <tr>
+            <td>Datum rodjenja:<input value="@Model.DatumRodjenja" name="datumRodjenja" /></td>
+        </tr>
+        <tr>
+            <td>Email:<input value="@Model.ElektronskaPosta" name="email" /></td>
+        </tr>
+        <tr>
+            <td>Prijavljeni ispiti:<input value="@Model.Prijavljen" name="prijavljen" /></td>
+        </tr>
+        <tr>
+            <td>Polozeni ispiti:<input value="@Model.Polozen" name="polozen" /></td>
+        </tr>
+        <tr>
+            <td>Nepolozeni ispiti:<input value="@Model.Nepolozen" name="nepolozen" /></td>
+        </tr>
+    </table>
+    <input id="dugme" type="submit" value="Izmeni"/>
+</form>
+
+<form action="~/Home/Admin">
+    <input id="dugme" type="submit" value="Nazad"/>
+</form>

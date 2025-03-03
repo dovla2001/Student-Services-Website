@@ -1,0 +1,71 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+@{ 
+    Layout = null;
+}
+<style>
+    body {
+        background-color: #1068e1
+    }
+
+    .forma {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin-top: -150px;
+    }
+
+    .naslov {
+       text-align: center;
+       color: #ffffff;
+    }
+
+    #labele{
+        color: #ffffff;
+        font-size:20px;
+    }
+
+    #dugme {
+        padding: 8px 15px;
+        border-radius: 15px;
+        background-color: #ffffff;
+        color: #1068e1;
+        text-align: center;
+        text-decoration: none;
+        transition: background-color 0.3s, box-shadow 0.3s;
+        cursor: pointer;
+    }
+
+    #dugme:hover {
+        background-color: #2980b9; 
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+    }
+
+</style>
+
+<h1 class="naslov">Studentska sluzba</h1>
+<h2 class="naslov">Prijava na sistem</h2>
+
+<form class="forma" method="post" action="~/Home/Prijava">
+    <table>
+        <tr>
+            <td id="labele">Korisnicko ime</td>
+        </tr>
+        <tr>
+            <td><input id="input" name="korisnickoIme" /></td>
+        </tr>
+        <tr>
+            <td id="labele">Lozinka</td>
+        </tr>
+        <tr>
+            <td><input id="input" type="password" name="lozinka" /></td>
+        </tr>
+        <tr>
+            <td><input id="dugme" type="submit" value="Prijavi se" /></td>
+        </tr>
+    </table>
+</form>
+

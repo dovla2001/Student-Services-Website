@@ -1,0 +1,77 @@
+﻿
+@{
+    ViewBag.Title = "Profesor";
+}
+@{
+    Layout = null;
+}
+
+@using WEB_PROJEKAT.Models;
+@model IEnumerable<Student>
+
+<style>
+    body {
+        background-color: #1068e1
+    }
+
+    #dugme {
+        padding: 8px 15px;
+        border-radius: 15px;
+        background-color: #ffffff;
+        color: #1068e1;
+        text-align: center;
+        text-decoration: none;
+        transition: background-color 0.3s, box-shadow 0.3s;
+        cursor: pointer;
+    }
+
+    #dugme:hover {
+        background-color: #2980b9;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    #profesor{
+        color: #ffffff;
+    }
+</style>
+
+@{
+    string prijavljen = "C:\\Users\\Lenovo\\Desktop\\WEB\\prijavljen.csv";
+
+    string ime = "";
+    string prezime = "";
+    string profesor = "";
+
+    using (StreamReader sr = new StreamReader(prijavljen))
+    {
+        string line;
+
+        while ((line = sr.ReadLine()) != null)
+        {
+            string[] values = line.Split(',');
+
+            ime = values[0];
+            prezime = values[1];
+            profesor = ime + " " + prezime;
+        }
+    }
+}
+
+<h2 id="profesor">@profesor</h2>
+
+<form method="post" action="~/Home/KreirajIspit">
+    <input id="dugme" type="submit" value="Kreiraj ispit" />
+</form>
+
+<form method="post" action="~/Home/RezultatiIspitaProfesor">
+    <input id="dugme" type="submit" value="Rezultati ispita" />
+</form>
+
+<form method="post" action="~/Home/OceniIspite">
+    <input id="dugme" type="submit" value="Oceni ispite" />
+</form>
+
+<form action="~/Home/Index">
+    <input id="dugme" type="submit" value="Odjavi se" />
+</form>
+

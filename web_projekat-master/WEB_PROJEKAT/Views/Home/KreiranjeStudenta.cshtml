@@ -1,0 +1,91 @@
+﻿
+@{
+    ViewBag.Title = "KreiranjeStudenta";
+}
+@{ 
+    Layout = null;
+}
+
+<style>
+    body {
+        background-color: #1068e1
+    }
+
+    #tabela{
+        color: #ffffff;
+        font-size: 20px;
+    }
+
+    #dugme {
+        padding: 8px 15px;
+        border-radius: 15px;
+        background-color: #ffffff;
+        color: #1068e1;
+        text-align: center;
+        text-decoration: none;
+        transition: background-color 0.3s, box-shadow 0.3s;
+        cursor: pointer;
+    }
+
+    #dugme:hover {
+        background-color: #2980b9;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    #naslov{
+        color: #ffffff;
+        font-size: 30px;
+    }
+</style>
+
+<h2 id="naslov">Kreiraj novog studenta</h2>
+<form method="post" action="~/Home/NoviStudent">
+    <table id="tabela">
+        <tr>
+            <td>Korisnicko ime: </td>
+            <td><input name="korisnickoIme" /></td>
+        </tr>
+        <tr>
+            <td>Indeks: </td>
+            <td><input name="indeks" /></td>
+        </tr>
+        <tr>
+            <td>Sifra: </td>
+            <td><input name="sifra" /></td>
+        </tr>
+        <tr>
+            <td>Ime: </td>
+            <td><input name="ime" /></td>
+        </tr>
+        <tr>
+            <td>Prezime: </td>
+            <td><input name="prezime" /></td>
+        </tr>
+        <tr>
+            <td>Datum rodjenja: </td>
+            <td><input type="date" name="datumRodjenja" /></td>
+        </tr>
+        <tr>
+            <td>Elektronska posta</td>
+            <td><input name="elektronskaPosta" /></td>
+        </tr>
+        <tr>
+            <td>Prijavljeni ispit</td>
+            <td><input name="prijavljeniIspit"/></td>
+        </tr>
+        <tr>
+            <td>Polozeni ispit</td>
+            <td><input name="polozeniIspit"/></td>
+        </tr>
+        <tr>
+            <td>Nepolozeni ispit</td>
+            <td><input name="nepolozeniIspit"/></td>
+        </tr>
+    </table>
+    <input id="dugme" type="submit" value="Kreiraj" />
+</form>
+
+<form action="~/Home/Admin">
+    <input id="dugme" type="submit" value="Nazad"/>
+</form>
+

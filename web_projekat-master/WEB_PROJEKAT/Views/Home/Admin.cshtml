@@ -1,0 +1,152 @@
+﻿
+@{
+    ViewBag.Title = "Admin";
+}
+@{
+    Layout = null;
+}
+
+@using WEB_PROJEKAT.Models;
+@model IEnumerable<Student>
+@using CsvHelper;
+ 
+<style>
+    body {
+        background-color: #1068e1;
+    }
+
+    #tabela {
+        color: #ffffff;
+    }
+
+    #naslov{
+        color: #ffffff;
+        font-size: 28px;
+    }
+
+    #dugme {
+        padding: 5px 10px;
+        border-radius: 15px;
+        background-color: #ffffff;
+        color: #1068e1;
+        text-align: center;
+        text-decoration: none;
+        transition: background-color 0.3s, box-shadow 0.3s;
+        cursor: pointer;
+    }
+
+    #dugme:hover {
+        background-color: #2980b9;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+    #dugme1 {
+        padding: 8px 15px;
+        border-radius: 15px;
+        background-color: #ffffff;
+        color: #1068e1;
+        text-align: center;
+        text-decoration: none;
+        transition: background-color 0.3s, box-shadow 0.3s;
+        cursor: pointer;
+    }
+
+    #dugme1:hover {
+        background-color: #2980b9;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+</style>
+
+<h2 id="naslov">Studentska sluzba</h2>
+
+<table id="tabela">
+    <tr>
+        <th colspan="6">Spisak aktivnih studenata</th>
+    </tr>
+    <tr>
+        <th>Broj indeksa&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+        <th>Ime&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+        <th>Prezime&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+        <th>Izmena&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+        <th>Prikaz&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+        <th>Brisanje&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+    </tr>
+
+    @{
+        string studentCsv = "C:\\Users\\Lenovo\\Desktop\\WEB\\studenttemp.csv";
+
+        string korisnickoIme = "";
+        string brojIndeksa = "";
+        string lozinkaCsv = "";
+        string ime = "";
+        string prezime = "";
+        string datumRodjenja = "";
+        string email = "";
+        string prijavljen = "";
+        string polozen = "";
+        string nepolozen = "";
+
+        List<Student> studenti = new List<Student>();
+
+        using (StreamReader reader = new StreamReader(studentCsv))
+        {
+            reader.ReadLine();
+            string line;
+
+            while ((line = reader.ReadLine()) != null)
+            {
+                string[] values = line.Split(',');
+
+                korisnickoIme = values[0];
+                brojIndeksa = values[1];
+                lozinkaCsv = values[2];
+                ime = values[3];
+                prezime = values[4];
+                datumRodjenja = values[5];
+                email = values[6];
+                prijavljen = values[7];
+                polozen = values[8];
+                nepolozen = values[9];
+
+
+                Student s1 = new Student(korisnickoIme, brojIndeksa, lozinkaCsv, ime, prezime, datumRodjenja, email, prijavljen, polozen, nepolozen);
+                studenti.Add(s1);
+            }
+        }
+    }
+    @foreach (Student s in studenti)
+    {
+        <tr>
+            <td>@s.BrojIndeksa@*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*@</td>
+            <td>@s.Ime@*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*@</td>
+            <td>@s.Prezime@*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*@</td>
+            <td>
+                <form method="post" action="~/Home/IzmenaStudenta">
+                    <input type="hidden" name="brojIndeksa" value="@(s.BrojIndeksa)"/>
+                    <input id="dugme" type="submit" value="Izmeni" />
+                </form>
+            </td>
+            <td>
+                <form method="post" action="~/Home/PrikazStudenta">
+                    <input type="hidden" name="brojIndeksa" value="@(s.BrojIndeksa)" />
+                    <input id="dugme" type="submit" value="Prikazi" />
+                </form>
+            </td>
+            <td>
+                <form method="post" action="~/Home/ObrisiStudenta">
+                    <input type="hidden" name="brojIndeksa" value="@(s.BrojIndeksa)" />
+                    <input id="dugme" type="submit" value="Obrisi" />
+                </form>
+            </td>
+        </tr>
+    }
+</table>
+
+<form method="post" action="~/Home/KreiranjeStudenta">
+    <input id="dugme1" type="submit" value="Kreiraj studenta" />
+</form>
+
+<form method="post" action="~/Home/Index">
+    <input id="dugme1" type="submit" value="Odjava" />
+</form>

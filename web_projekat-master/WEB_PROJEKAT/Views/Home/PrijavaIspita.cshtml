@@ -1,0 +1,124 @@
+﻿
+@{
+    ViewBag.Title = "PrijavaIspita";
+}
+@{ 
+    Layout = null;
+}
+
+@using WEB_PROJEKAT.Models
+@model IEnumerable<Student>
+
+<style>
+    body {
+        background-color: #1068e1
+    }
+
+    #tabela {
+        color: #ffffff;
+        font-size: 20px;
+    }
+
+    #naslov{
+        color: #ffffff;
+        font-size: 28px;
+    }
+
+    #podnaslov{
+        color: #ffffff;
+        font-size: 24px;
+    }
+
+    #dugme {
+        padding: 8px 15px;
+        border-radius: 15px;
+        background-color: #ffffff;
+        color: #1068e1;
+        text-align: center;
+        text-decoration: none;
+        transition: background-color 0.3s, box-shadow 0.3s;
+        cursor: pointer;
+    }
+
+    #dugme:hover {
+        background-color: #2980b9;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+</style>
+
+<h2 id="naslov">Prijava ispita</h2>
+<form method="post" action="~/Home/PrijaviIspit ">
+    <table id="tabela">
+        <tr>
+            <th>Naziv&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+            <th>Datum&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+            <th>Ucionica&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+            <th>Ispitni rok&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+            <th>Profesor&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+        </tr>
+        @{
+            string ispitCsv = "C:\\Users\\Lenovo\\Desktop\\WEB\\ispit.csv";
+
+            string profesor = "";
+            string predmet = "";
+            string datum = "";
+            string ucionica = "";
+            string rok = "";
+
+            List<Ispit> ispiti = new List<Ispit>();
+
+            using (StreamReader sr = new StreamReader(ispitCsv))
+            {
+                string line;
+
+                while ((line = sr.ReadLine()) != null)
+                {
+                    string[] values = line.Split(',');
+
+                    profesor = values[0];
+                    predmet = values[1];
+                    datum = values[2];
+                    ucionica = values[3];
+                    rok = values[4];
+
+                    Ispit i = new Ispit(profesor, predmet, datum, ucionica, rok);
+                    ispiti.Add(i);
+                }
+            }
+        }
+
+        @foreach (Ispit s in ispiti)
+        {
+            <tr>
+
+                <td>@s.Predmet&nbsp;&nbsp;</td>
+                <td>@s.DatumIVremeOdrzavanja&nbsp;&nbsp;</td>
+                <td>@s.Ucionica</td>
+                <td>@s.IspitniRok&nbsp;&nbsp;</td>
+                <td>@s.Profesor</td>
+
+            </tr>
+        }
+    </table>
+    &nbsp;&nbsp;&nbsp;&nbsp;
+    <table>
+        <tr>
+            <td id="podnaslov">Unesite naziv ispita koji zelite da prijavite:</td>
+            <td><input name="nazivIspita" /></td>
+        </tr>
+        <tr>
+            <td id="podnaslov">Unesite rok za koji prijavljujete ispit:</td>
+            <td><input name="ispitniRok" /></td>
+        </tr>
+
+    </table>
+    <input id="dugme" type="submit" value="Prijavi" />
+</form>
+
+<form action="~/Home/Student">
+    <input id="dugme" type="submit" value="Nazad" />
+</form>
+
+<form method="post" action="~/Home/Index">
+    <input id="dugme" type="submit" value="Odjava" />
+</form>

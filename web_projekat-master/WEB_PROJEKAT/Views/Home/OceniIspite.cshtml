@@ -1,0 +1,164 @@
+﻿
+@{
+    ViewBag.Title = "OceniIspite";
+}
+@{
+    Layout = null;
+}
+
+@using WEB_PROJEKAT.Models;
+@model IEnumerable<Ispit>
+
+<style>
+    body {
+        background-color: #1068e1
+    }
+
+    #tabela{
+        color: #ffffff;
+        font-size: 20px;
+    }
+
+    #dugme {
+        padding: 8px 15px;
+        border-radius: 15px;
+        background-color: #ffffff;
+        color: #1068e1;
+        text-align: center;
+        text-decoration: none;
+        transition: background-color 0.3s, box-shadow 0.3s;
+        cursor: pointer;
+    }
+
+    #dugme:hover {
+        background-color: #2980b9;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    #naslov{
+        color: #ffffff;
+        font-size: 28px;
+    }
+
+    #podnaslov{
+        color: #ffffff;
+        font-size: 24px;
+    }
+</style>
+
+<h2 id="naslov">Oceni ispite</h2>
+
+<h4 id="podnaslov">Lista prijavljenih ispita</h4>
+
+<table id="tabela">
+    @{
+        string prijavljeniIspiti = "C:\\Users\\Lenovo\\Desktop\\WEB\\prijavljeniIspiti.csv";
+        string prijavljen = "C:\\Users\\Lenovo\\Desktop\\WEB\\prijavljen.csv";
+
+        string profesor = "";
+        string predmet = "";
+        string datum = "";
+        string ucionica = "";
+        string rok = "";
+        string ime = "";
+        string prezime = "";
+
+        string imeProfesora = "";
+        string prezimeProfesora = "";
+        string predmetPrijava = "";
+        string profa = "";
+
+        List<Ispit> ispiti = new List<Ispit>();
+        List<string> studenti = new List<string>();
+
+        using (StreamReader sr = new StreamReader(prijavljen))
+        {
+            string line;
+
+            while ((line = sr.ReadLine()) != null)
+            {
+                string[] values = line.Split(',');
+
+                imeProfesora = values[0];
+                prezimeProfesora = values[1];
+                predmetPrijava = values[2];
+                profa = imeProfesora + " " + prezimeProfesora;
+            }
+        }
+
+        using (StreamReader sr = new StreamReader(prijavljeniIspiti))
+        {
+            string line;
+
+            while ((line = sr.ReadLine()) != null)
+            {
+                string[] values = line.Split(',');
+
+                profesor = values[0];
+                predmet = values[1];
+                datum = values[2];
+                ucionica = values[3];
+                rok = values[4];
+                ime = values[5];
+                prezime = values[6];
+
+
+                Ispit i = new Ispit(profesor, predmet, datum, ucionica, rok, ime, prezime);
+                ispiti.Add(i);
+            }
+        }
+    }
+    @foreach (Ispit s in ispiti)
+    {
+        if (s.Profesor == profa)
+        {
+
+
+        <tr>
+            <td>@s.Predmet</td>
+            <td>@s.DatumIVremeOdrzavanja</td>
+            <td>@s.Ucionica</td>
+            <td>@s.IspitniRok</td>
+            <td>@s.Ime</td>
+            <td>@s.Prezime</td>
+        </tr>
+        }
+    }
+</table>
+
+<br />
+
+<form method="post" action="~/Home/Ocena">
+    <table id="tabela">
+        <tr>
+            <td>Unesite ime studenta:</td>
+            <td><input name="ime" /></td>
+        </tr>
+        <tr>
+            <td>Unesite prezime studenta:</td>
+            <td><input name="prezime"/></td>
+        </tr>
+        <tr>
+            <td>Unesite naziv predmeta:</td>
+            <td><input name="nazivPredmeta"/></td>
+        </tr>
+        <tr>
+            <td>Unesite ocenu:</td>
+            <td><input name="brojBodova" /></td>
+        </tr>
+        <tr>
+            <td>Unesite ispitni rok:</td>
+            <td><input name="ispitniRok"/></td>
+        </tr>
+    </table>
+
+    <input id="dugme" type="submit" value="Oceni" />
+</form>
+
+<form action="~/Home/Profesor">
+    <input id="dugme" type="submit" value="Nazad" />
+</form>
+
+<form method="post" action="~/Home/Index">
+    <input id="dugme" type="submit" value="Odjavi se"/>
+</form>

@@ -1,0 +1,67 @@
+﻿
+@{
+    ViewBag.Title = "KreirajIspit";
+}
+@{ 
+    Layout = null;
+}
+
+<style>
+    body {
+        background-color: #1068e1
+    }
+
+    #tabela{
+        color: #ffffff;
+        font-size: 20px;
+    }
+
+    #naslov{
+        color: #ffffff;
+    }
+
+    #dugme {
+        padding: 8px 15px;
+        border-radius: 15px;
+        background-color: #ffffff;
+        color: #1068e1;
+        text-align: center;
+        text-decoration: none;
+        transition: background-color 0.3s, box-shadow 0.3s;
+        cursor: pointer;
+    }
+
+    #dugme:hover {
+        background-color: #2980b9;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+</style>
+
+<h2 id="naslov">Kreiranje novog ispita</h2>
+
+<form method="post" action="~/Home/NoviIspit">
+    <table id="tabela">
+        <tr>
+            <td>Predmet:</td>
+            <td><input name="predmet"/></td>
+        </tr>
+        <tr>
+            <td>Datum odrzavanja:</td>
+            <td><input type="datetime-local" name="datumOdrzavanja" min="08/24/2023"/></td>
+        </tr>
+        <tr>
+            <td>Naziv ucionice:</td>
+            <td><input name="ucionica"/></td>
+        </tr>
+        <tr>
+            <td>Ispitni rok:</td>
+            <td><input name="ispitniRok"/></td>
+        </tr>
+    </table>
+    <input id="dugme" type="submit" value="Kreiraj ispit"/>
+</form>
+
+<form action="~/Home/Profesor">
+    <input id="dugme" type="submit" value="Nazad"/>
+</form>
+
